@@ -1,0 +1,859 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Moliki Studio — Interior Design</title>
+<meta name="description" content="Moliki Studio designs considered, livable interiors — from first sketch to finished room.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --plaster: #ECE6DC;
+    --plaster-deep: #DED5C4;
+    --ink: #2B2722;
+    --clay: #B5654A;
+    --walnut: #5B4636;
+    --line: rgba(43,39,34,0.18);
+    --paper: #F7F4EE;
+
+    --display: 'Fraunces', serif;
+    --body: 'Inter', sans-serif;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: var(--body);
+    font-size: 16px;
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.001ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+
+  a { color: inherit; text-decoration: none; }
+
+  :focus-visible {
+    outline: 2px solid var(--clay);
+    outline-offset: 3px;
+  }
+
+  .wrap {
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: 0 32px;
+  }
+
+  /* ---------- NAV ---------- */
+  header {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    background: rgba(247,244,238,0.86);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid transparent;
+    transition: border-color 0.3s ease;
+  }
+  header.scrolled { border-color: var(--line); }
+
+  nav {
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: 22px 32px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .logo {
+    font-family: var(--display);
+    font-size: 1.25rem;
+    font-weight: 500;
+    letter-spacing: 0.01em;
+  }
+  .logo span { color: var(--clay); }
+
+  .nav-links { display: flex; gap: 36px; list-style: none; }
+  .nav-links a {
+    font-size: 0.84rem;
+    text-transform: uppercase;
+    letter-spacing: 0.09em;
+    color: var(--walnut);
+    position: relative;
+    padding-bottom: 4px;
+  }
+  .nav-links a::after {
+    content: '';
+    position: absolute;
+    left: 0; bottom: 0;
+    width: 0%;
+    height: 1px;
+    background: var(--clay);
+    transition: width 0.25s ease;
+  }
+  .nav-links a:hover::after { width: 100%; }
+
+  .nav-cta {
+    border: 1px solid var(--ink);
+    padding: 9px 20px;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    border-radius: 2px;
+    transition: background 0.25s ease, color 0.25s ease;
+  }
+  .nav-cta:hover { background: var(--ink); color: var(--paper); }
+
+  .menu-btn { display: none; background: none; border: none; cursor: pointer; }
+
+  /* ---------- HERO ---------- */
+  .hero {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    padding-top: 90px;
+    overflow: hidden;
+  }
+
+  .hero .wrap {
+    display: grid;
+    grid-template-columns: 1.1fr 1fr;
+    gap: 40px;
+    align-items: center;
+    width: 100%;
+  }
+
+  .eyebrow {
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 0.16em;
+    color: var(--clay);
+    margin-bottom: 22px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .eyebrow::before {
+    content: '';
+    width: 28px; height: 1px;
+    background: var(--clay);
+  }
+
+  .hero h1 {
+    font-family: var(--display);
+    font-weight: 400;
+    font-size: clamp(2.6rem, 5.4vw, 4.4rem);
+    line-height: 1.04;
+    letter-spacing: -0.01em;
+  }
+  .hero h1 em {
+    font-style: italic;
+    font-weight: 300;
+    color: var(--clay);
+  }
+
+  .hero p.lede {
+    margin-top: 26px;
+    max-width: 38ch;
+    font-size: 1.08rem;
+    color: var(--walnut);
+  }
+
+  .hero-actions {
+    margin-top: 38px;
+    display: flex;
+    gap: 18px;
+    align-items: center;
+  }
+
+  .btn-primary {
+    background: var(--ink);
+    color: var(--paper);
+    padding: 15px 30px;
+    font-size: 0.84rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    border-radius: 2px;
+    border: 1px solid var(--ink);
+    transition: background 0.25s ease, transform 0.2s ease;
+    display: inline-block;
+  }
+  .btn-primary:hover { background: var(--clay); border-color: var(--clay); transform: translateY(-1px); }
+
+  .btn-text {
+    font-size: 0.84rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    border-bottom: 1px solid var(--ink);
+    padding-bottom: 3px;
+  }
+
+  /* --- room assembly animation --- */
+  .room-stage {
+    position: relative;
+    aspect-ratio: 4/5;
+    width: 100%;
+  }
+  .room-stage svg { width: 100%; height: 100%; overflow: visible; }
+
+  .room-stage .blueprint {
+    stroke: var(--walnut);
+    fill: none;
+    stroke-width: 1;
+    stroke-dasharray: 1200;
+    stroke-dashoffset: 1200;
+    animation: draw 2.2s 0.2s ease forwards;
+  }
+
+  .room-stage .fill-shape {
+    opacity: 0;
+    animation: appear 0.9s ease forwards;
+  }
+  .room-stage .fill-shape.f1 { animation-delay: 1.6s; }
+  .room-stage .fill-shape.f2 { animation-delay: 1.85s; }
+  .room-stage .fill-shape.f3 { animation-delay: 2.1s; }
+  .room-stage .fill-shape.f4 { animation-delay: 2.3s; }
+  .room-stage .fill-shape.f5 { animation-delay: 2.5s; }
+
+  @keyframes draw { to { stroke-dashoffset: 0; } }
+  @keyframes appear { to { opacity: 1; } }
+
+  @media (prefers-reduced-motion: reduce) {
+    .room-stage .blueprint { stroke-dashoffset: 0; animation: none; }
+    .room-stage .fill-shape { opacity: 1; animation: none; }
+  }
+
+  /* ---------- MARQUEE STRIP ---------- */
+  .strip {
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+    padding: 20px 0;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+  .strip-track {
+    display: inline-flex;
+    gap: 56px;
+    animation: scroll-left 28s linear infinite;
+  }
+  .strip-track span {
+    font-family: var(--display);
+    font-style: italic;
+    font-size: 1.1rem;
+    color: var(--walnut);
+    opacity: 0.65;
+  }
+  @keyframes scroll-left {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .strip-track { animation: none; }
+  }
+
+  /* ---------- SECTION SHARED ---------- */
+  section { padding: 130px 0; }
+  .section-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 64px;
+    gap: 40px;
+  }
+  .section-head h2 {
+    font-family: var(--display);
+    font-weight: 400;
+    font-size: clamp(2rem, 3.4vw, 2.9rem);
+    max-width: 14ch;
+  }
+  .section-head p {
+    max-width: 34ch;
+    color: var(--walnut);
+    font-size: 0.98rem;
+  }
+
+  /* ---------- APPROACH (process, genuinely sequential) ---------- */
+  .approach { background: var(--plaster); }
+  .approach-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1px;
+    background: var(--line);
+    border: 1px solid var(--line);
+  }
+  .approach-step {
+    background: var(--plaster);
+    padding: 40px 30px;
+    position: relative;
+  }
+  .approach-step .stage-mark {
+    font-family: var(--display);
+    font-style: italic;
+    font-size: 0.95rem;
+    color: var(--clay);
+    margin-bottom: 26px;
+    display: block;
+  }
+  .approach-step h3 {
+    font-family: var(--display);
+    font-weight: 500;
+    font-size: 1.3rem;
+    margin-bottom: 12px;
+  }
+  .approach-step p { font-size: 0.92rem; color: var(--walnut); }
+
+  /* ---------- PORTFOLIO ---------- */
+  .portfolio-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 28px;
+  }
+  .portfolio-item {
+    position: relative;
+    border-radius: 2px;
+    overflow: hidden;
+    aspect-ratio: 4/5;
+  }
+  .portfolio-item svg { width: 100%; height: 100%; display: block; }
+  .portfolio-item .tag {
+    position: absolute;
+    left: 18px; bottom: 18px;
+    color: var(--paper);
+    font-size: 0.82rem;
+  }
+  .portfolio-item .tag .room {
+    display: block;
+    font-family: var(--display);
+    font-style: italic;
+    font-size: 1.25rem;
+    margin-bottom: 2px;
+  }
+  .portfolio-item::after {
+    content: '';
+    position: absolute; inset: 0;
+    background: linear-gradient(180deg, rgba(43,39,34,0) 45%, rgba(43,39,34,0.62) 100%);
+  }
+
+  /* ---------- ABOUT ---------- */
+  .about { background: var(--plaster); }
+  .about .wrap {
+    display: grid;
+    grid-template-columns: 0.9fr 1.1fr;
+    gap: 70px;
+    align-items: center;
+  }
+  .about-portrait {
+    aspect-ratio: 3/4;
+    background: var(--plaster-deep);
+    border: 1px solid var(--line);
+    position: relative;
+    overflow: hidden;
+  }
+  .about-portrait svg { width: 100%; height: 100%; }
+
+  .about-copy .eyebrow { margin-bottom: 18px; }
+  .about-copy h2 {
+    font-family: var(--display);
+    font-weight: 400;
+    font-size: clamp(1.9rem, 3vw, 2.5rem);
+    margin-bottom: 22px;
+  }
+  .about-copy p { color: var(--walnut); margin-bottom: 18px; max-width: 52ch; }
+
+  .about-stats {
+    display: flex;
+    gap: 48px;
+    margin-top: 36px;
+  }
+  .about-stats div strong {
+    display: block;
+    font-family: var(--display);
+    font-size: 2rem;
+    font-weight: 500;
+  }
+  .about-stats div span {
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+    color: var(--walnut);
+  }
+
+  /* ---------- TESTIMONIAL ---------- */
+  .testimonial {
+    text-align: center;
+    padding: 130px 0;
+  }
+  .testimonial blockquote {
+    font-family: var(--display);
+    font-weight: 300;
+    font-style: italic;
+    font-size: clamp(1.5rem, 3vw, 2.3rem);
+    max-width: 22ch;
+    margin: 0 auto 28px;
+    line-height: 1.35;
+  }
+  .testimonial cite {
+    font-style: normal;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--walnut);
+  }
+
+  /* ---------- CONTACT ---------- */
+  .contact {
+    background: var(--ink);
+    color: var(--paper);
+  }
+  .contact .wrap {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 70px;
+  }
+  .contact h2 {
+    font-family: var(--display);
+    font-weight: 400;
+    font-size: clamp(2rem, 3.6vw, 3rem);
+    margin-bottom: 22px;
+  }
+  .contact p.lede { color: rgba(247,244,238,0.7); max-width: 36ch; margin-bottom: 36px; }
+
+  .contact-detail { margin-bottom: 22px; }
+  .contact-detail span {
+    display: block;
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--clay);
+    margin-bottom: 4px;
+  }
+  .contact-detail a, .contact-detail p { font-size: 1rem; }
+
+  form { display: flex; flex-direction: column; gap: 18px; }
+  .field { display: flex; flex-direction: column; gap: 8px; }
+  .field label {
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: rgba(247,244,238,0.6);
+  }
+  .field input, .field textarea {
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid rgba(247,244,238,0.3);
+    color: var(--paper);
+    font-family: var(--body);
+    font-size: 1rem;
+    padding: 8px 0;
+    transition: border-color 0.2s ease;
+  }
+  .field input::placeholder, .field textarea::placeholder { color: rgba(247,244,238,0.35); }
+  .field input:focus, .field textarea:focus { border-color: var(--clay); outline: none; }
+  .field textarea { resize: vertical; min-height: 80px; }
+
+  .submit-btn {
+    margin-top: 10px;
+    align-self: flex-start;
+    background: var(--clay);
+    color: var(--ink);
+    border: none;
+    padding: 15px 32px;
+    font-size: 0.84rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    border-radius: 2px;
+    cursor: pointer;
+    transition: background 0.25s ease, transform 0.2s ease;
+  }
+  .submit-btn:hover { background: var(--paper); transform: translateY(-1px); }
+
+  .form-note {
+    font-size: 0.82rem;
+    color: rgba(247,244,238,0.45);
+    margin-top: -4px;
+  }
+  .form-success {
+    display: none;
+    font-size: 0.92rem;
+    color: var(--clay);
+    margin-top: 6px;
+  }
+  .form-success.show { display: block; }
+
+  /* ---------- FOOTER ---------- */
+  footer {
+    background: var(--ink);
+    color: rgba(247,244,238,0.5);
+    border-top: 1px solid rgba(247,244,238,0.12);
+    padding: 28px 0;
+    font-size: 0.82rem;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  /* ---------- SCROLL REVEAL ---------- */
+  .reveal {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  .reveal.in { opacity: 1; transform: translateY(0); }
+
+  /* ---------- RESPONSIVE ---------- */
+  @media (max-width: 980px) {
+    .hero .wrap { grid-template-columns: 1fr; }
+    .room-stage { max-width: 420px; margin: 50px auto 0; }
+    .approach-grid { grid-template-columns: repeat(2, 1fr); }
+    .portfolio-grid { grid-template-columns: repeat(2, 1fr); }
+    .about .wrap { grid-template-columns: 1fr; }
+    .about-portrait { max-width: 360px; }
+    .contact .wrap { grid-template-columns: 1fr; }
+  }
+
+  @media (max-width: 640px) {
+    .nav-links, .nav-cta { display: none; }
+    .menu-btn { display: block; }
+    .approach-grid { grid-template-columns: 1fr; }
+    .portfolio-grid { grid-template-columns: 1fr; }
+    section { padding: 90px 0; }
+    .section-head { flex-direction: column; align-items: flex-start; }
+  }
+</style>
+</head>
+<body>
+
+<header id="header">
+  <nav>
+    <a href="#" class="logo">Moliki <span>Studio</span></a>
+    <ul class="nav-links">
+      <li><a href="#approach">Approach</a></li>
+      <li><a href="#portfolio">Portfolio</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <a href="#contact" class="nav-cta">Book a Consult</a>
+  </nav>
+</header>
+
+<main>
+  <!-- HERO -->
+  <section class="hero">
+    <div class="wrap">
+      <div>
+        <p class="eyebrow">Residential &amp; Boutique Commercial Interiors</p>
+        <h1>Rooms drawn<br>with intent, built<br>for <em>how you live.</em></h1>
+        <p class="lede">Moliki Studio takes spaces from first floor plan to final styling — considered, livable, and entirely yours.</p>
+        <div class="hero-actions">
+          <a href="#contact" class="btn-primary">Start a Project</a>
+          <a href="#portfolio" class="btn-text">View Portfolio</a>
+        </div>
+      </div>
+
+      <div class="room-stage" aria-hidden="true">
+        <svg viewBox="0 0 400 500">
+          <!-- blueprint room outline -->
+          <path class="blueprint" d="M40,460 L40,80 L220,40 L360,80 L360,460 Z M40,460 L360,460" />
+          <!-- window -->
+          <path class="blueprint" d="M280,100 L340,112 L340,180 L280,168 Z" style="animation-delay:0.6s;" />
+          <!-- door -->
+          <path class="blueprint" d="M60,300 L60,420 M60,420 Q120,420 120,360" style="animation-delay:0.9s;" />
+
+          <!-- filled furnishings -->
+          <rect class="fill-shape f1" x="70" y="340" width="110" height="60" rx="3" fill="var(--clay)" opacity="0.85"/>
+          <rect class="fill-shape f2" x="200" y="360" width="60" height="40" rx="3" fill="var(--walnut)"/>
+          <circle class="fill-shape f3" cx="300" cy="380" r="26" fill="var(--ink)" opacity="0.8"/>
+          <rect class="fill-shape f4" x="90" y="120" width="150" height="6" fill="var(--ink)" opacity="0.5"/>
+          <rect class="fill-shape f5" x="50" y="430" width="300" height="14" fill="var(--plaster-deep)"/>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <!-- MARQUEE -->
+  <div class="strip" aria-hidden="true">
+    <div class="strip-track">
+      <span>Kitchens</span><span>Primary Suites</span><span>Living Rooms</span><span>Boutique Retail</span><span>Outdoor Living</span><span>Full Renovations</span>
+      <span>Kitchens</span><span>Primary Suites</span><span>Living Rooms</span><span>Boutique Retail</span><span>Outdoor Living</span><span>Full Renovations</span>
+    </div>
+  </div>
+
+  <!-- APPROACH -->
+  <section class="approach" id="approach">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <h2>From sketch to finished room, in four moves.</h2>
+        <p>A fixed sequence we follow on every project, so nothing about your space is left to guesswork.</p>
+      </div>
+      <div class="approach-grid reveal">
+        <div class="approach-step">
+          <span class="stage-mark">I. Discover</span>
+          <h3>Walkthrough &amp; brief</h3>
+          <p>We visit the space, talk through how you actually live in it, and set a budget and timeline that hold.</p>
+        </div>
+        <div class="approach-step">
+          <span class="stage-mark">II. Draft</span>
+          <h3>Plans &amp; mood boards</h3>
+          <p>Floor plans, material palettes, and 3D renders, refined with you until the direction feels right.</p>
+        </div>
+        <div class="approach-step">
+          <span class="stage-mark">III. Source</span>
+          <h3>Procurement &amp; trades</h3>
+          <p>We order furnishings, manage trade schedules, and handle the logistics so you don't have to.</p>
+        </div>
+        <div class="approach-step">
+          <span class="stage-mark">IV. Install</span>
+          <h3>Styling &amp; reveal</h3>
+          <p>Final placement, styling, and a walkthrough — the room handed back to you, finished.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PORTFOLIO -->
+  <section id="portfolio">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <h2>Recent rooms.</h2>
+        <p>A small selection of completed projects, spanning full renovations and single-room refreshes.</p>
+      </div>
+      <div class="portfolio-grid reveal">
+
+        <div class="portfolio-item">
+          <svg viewBox="0 0 400 500" preserveAspectRatio="xMidYMid slice">
+            <rect width="400" height="500" fill="#D9CFBE"/>
+            <rect x="0" y="320" width="400" height="180" fill="#B5654A"/>
+            <rect x="40" y="200" width="140" height="120" fill="#5B4636"/>
+            <rect x="220" y="160" width="100" height="160" fill="#2B2722" opacity="0.75"/>
+            <circle cx="330" cy="100" r="40" fill="#ECE6DC" opacity="0.5"/>
+          </svg>
+          <div class="tag"><span class="room">The Birchwood Kitchen</span>Fort Worth, TX</div>
+        </div>
+
+        <div class="portfolio-item">
+          <svg viewBox="0 0 400 500" preserveAspectRatio="xMidYMid slice">
+            <rect width="400" height="500" fill="#ECE6DC"/>
+            <rect x="0" y="0" width="400" height="220" fill="#5B4636" opacity="0.85"/>
+            <rect x="60" y="260" width="280" height="90" rx="6" fill="#B5654A"/>
+            <rect x="100" y="370" width="200" height="14" fill="#2B2722" opacity="0.5"/>
+          </svg>
+          <div class="tag"><span class="room">Crestline Primary Suite</span>Dallas, TX</div>
+        </div>
+
+        <div class="portfolio-item">
+          <svg viewBox="0 0 400 500" preserveAspectRatio="xMidYMid slice">
+            <rect width="400" height="500" fill="#DED5C4"/>
+            <polygon points="0,500 0,260 200,180 400,260 400,500" fill="#2B2722" opacity="0.82"/>
+            <circle cx="200" cy="370" r="46" fill="#B5654A"/>
+            <rect x="170" y="80" width="60" height="100" fill="#5B4636"/>
+          </svg>
+          <div class="tag"><span class="room">Eastside Loft Living</span>Fort Worth, TX</div>
+        </div>
+
+        <div class="portfolio-item">
+          <svg viewBox="0 0 400 500" preserveAspectRatio="xMidYMid slice">
+            <rect width="400" height="500" fill="#B5654A" opacity="0.18"/>
+            <rect x="30" y="60" width="340" height="220" fill="#5B4636"/>
+            <rect x="80" y="320" width="240" height="120" fill="#2B2722" opacity="0.75"/>
+            <circle cx="200" cy="170" r="50" fill="#ECE6DC"/>
+          </svg>
+          <div class="tag"><span class="room">Maddox &amp; Co. Boutique</span>Retail Fit-Out</div>
+        </div>
+
+        <div class="portfolio-item">
+          <svg viewBox="0 0 400 500" preserveAspectRatio="xMidYMid slice">
+            <rect width="400" height="500" fill="#2B2722"/>
+            <rect x="20" y="350" width="360" height="150" fill="#DED5C4"/>
+            <rect x="60" y="120" width="280" height="200" fill="#B5654A" opacity="0.55"/>
+            <rect x="160" y="60" width="80" height="60" fill="#ECE6DC" opacity="0.5"/>
+          </svg>
+          <div class="tag"><span class="room">Riverbend Outdoor Living</span>Fort Worth, TX</div>
+        </div>
+
+        <div class="portfolio-item">
+          <svg viewBox="0 0 400 500" preserveAspectRatio="xMidYMid slice">
+            <rect width="400" height="500" fill="#ECE6DC"/>
+            <rect x="0" y="200" width="400" height="300" fill="#5B4636" opacity="0.18"/>
+            <rect x="50" y="240" width="300" height="100" fill="#2B2722" opacity="0.8"/>
+            <circle cx="120" cy="160" r="34" fill="#B5654A"/>
+            <circle cx="280" cy="150" r="22" fill="#B5654A" opacity="0.6"/>
+          </svg>
+          <div class="tag"><span class="room">Hillcrest Full Renovation</span>Arlington, TX</div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section class="about" id="about">
+    <div class="wrap">
+      <div class="about-portrait reveal">
+        <svg viewBox="0 0 400 500" preserveAspectRatio="xMidYMid slice">
+          <rect width="400" height="500" fill="#DED5C4"/>
+          <circle cx="200" cy="190" r="80" fill="#5B4636" opacity="0.3"/>
+          <rect x="100" y="280" width="200" height="220" rx="40" fill="#2B2722" opacity="0.55"/>
+          <rect x="40" y="40" width="320" height="2" fill="#B5654A"/>
+          <rect x="40" y="460" width="320" height="2" fill="#B5654A"/>
+        </svg>
+      </div>
+      <div class="about-copy reveal">
+        <p class="eyebrow">Principal Designer</p>
+        <h2>Hi, I'm the studio behind Moliki — and every project starts at your floor plan, not a mood board.</h2>
+        <p>I trained in spatial design before moving into residential and boutique commercial interiors, which means every project starts with how a room is actually used — traffic flow, light, storage — before a single fabric swatch enters the conversation.</p>
+        <p>The result is interiors that photograph well, but more importantly, hold up to daily life: kids, dinner parties, late nights at the kitchen island, all of it.</p>
+        <div class="about-stats">
+          <div><strong>40+</strong><span>Projects Completed</span></div>
+          <div><strong>9</strong><span>Years in Practice</span></div>
+          <div><strong>DFW</strong><span>Based, Travels Nationally</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIAL -->
+  <section class="testimonial">
+    <div class="wrap">
+      <blockquote class="reveal">"She designed our kitchen around how we actually cook, not how it would photograph. Both ended up true anyway."</blockquote>
+      <cite class="reveal">— Renata &amp; James, Birchwood Kitchen</cite>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section class="contact" id="contact">
+    <div class="wrap">
+      <div class="reveal">
+        <h2>Let's talk about your space.</h2>
+        <p class="lede">Tell us a bit about the project and we'll follow up within two business days to schedule a walkthrough.</p>
+
+        <div class="contact-detail">
+          <span>Email</span>
+          <a href="mailto:hello@molikistudio.com">hello@molikistudio.com</a>
+        </div>
+        <div class="contact-detail">
+          <span>Phone</span>
+          <a href="tel:+18175550148">(817) 555-0148</a>
+        </div>
+        <div class="contact-detail">
+          <span>Studio</span>
+          <p>Fort Worth, TX — by appointment</p>
+        </div>
+      </div>
+
+      <form id="contact-form" class="reveal">
+        <input type="hidden" name="access_key" value="YOUR_WEB3FORMS_ACCESS_KEY">
+        <input type="hidden" name="subject" value="New inquiry — Moliki Studio website">
+        <input type="checkbox" name="botcheck" style="display:none" tabindex="-1" autocomplete="off">
+
+        <div class="field">
+          <label for="name">Name</label>
+          <input id="name" name="name" type="text" placeholder="Your name" required>
+        </div>
+        <div class="field">
+          <label for="email">Email</label>
+          <input id="email" name="email" type="email" placeholder="you@email.com" required>
+        </div>
+        <div class="field">
+          <label for="project">Project type</label>
+          <input id="project" name="project" type="text" placeholder="e.g. Kitchen renovation, full home">
+        </div>
+        <div class="field">
+          <label for="message">Tell us about the space</label>
+          <textarea id="message" name="message" placeholder="Rooms involved, timeline, budget range..."></textarea>
+        </div>
+        <button type="submit" class="submit-btn" id="submit-btn">Send Inquiry</button>
+        <p class="form-success" id="form-success"></p>
+      </form>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap" style="display:flex; justify-content:space-between; width:100%;">
+    <span>&copy; 2026 Moliki Studio. All rights reserved.</span>
+    <span>Fort Worth, Texas</span>
+  </div>
+</footer>
+
+<script>
+  // header border on scroll
+  const header = document.getElementById('header');
+  window.addEventListener('scroll', () => {
+    header.classList.toggle('scrolled', window.scrollY > 10);
+  });
+
+  // scroll reveal
+  const revealEls = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('in');
+        io.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.15 });
+  revealEls.forEach(el => io.observe(el));
+
+  // contact form -> Web3Forms
+  const form = document.getElementById('contact-form');
+  const success = document.getElementById('form-success');
+  const submitBtn = document.getElementById('submit-btn');
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    const key = form.access_key.value;
+    if (!key || key === 'YOUR_WEB3FORMS_ACCESS_KEY') {
+      success.textContent = 'Form isn\u2019t connected yet \u2014 add your Web3Forms access key in index.html.';
+      success.style.color = '#B5654A';
+      success.classList.add('show');
+      return;
+    }
+
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Sending...';
+    success.classList.remove('show');
+
+    try {
+      const formData = new FormData(form);
+      const res = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: { 'Accept': 'application/json' },
+        body: formData
+      });
+      const result = await res.json();
+
+      if (result.success) {
+        success.textContent = 'Thanks \u2014 we\u2019ll be in touch within two business days.';
+        success.style.color = '';
+        success.classList.add('show');
+        form.reset();
+      } else {
+        throw new Error(result.message || 'Submission failed');
+      }
+    } catch (err) {
+      success.textContent = 'Something went wrong sending your message. Please email us directly instead.';
+      success.style.color = '#B5654A';
+      success.classList.add('show');
+    } finally {
+      submitBtn.disabled = false;
+      submitBtn.textContent = 'Send Inquiry';
+    }
+  });
+</script>
+
+</body>
+</html>
